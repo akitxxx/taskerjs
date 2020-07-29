@@ -12,17 +12,6 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express();
 
-  server.use(
-    '/api',
-    createProxyMiddleware({
-      target: API_URL,
-      pathRewrite: {
-        "^/api": ""
-      },
-      changeOrigin: true
-    })
-  );
-
   server.all('*', (req, res) => {
     return handle(req, res)
   });
