@@ -4,22 +4,21 @@ services:
     build: .
     tty: true
     volumes:
-      - ./:/go/src/github.com/lelouch99v/tasker
-    working_dir: /go/src/github.com/lelouch99v/tasker
+      - ./:/usr/src/app/tasker
+    working_dir: /usr/src/app/tasker
     ports:
       - "5005:5005"
     networks:
       - tasker_network
   tasker_dev:
-    build:
-      context: .
-      target: builder
+    build: .
     tty: true
     volumes:
-      - ./:/go/src/github.com/lelouch99v/tasker
-    working_dir: /go/src/github.com/lelouch99v/tasker
+      - ./:/usr/src/app/tasker
+    working_dir: /usr/src/app/tasker
     ports:
-      - "5010:5010"
+      - "3000:3000"
+    command: bash -c yarn && yarn run dev
     depends_on:
       - db
     networks:
