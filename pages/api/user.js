@@ -1,11 +1,13 @@
+const db = require('../../lib/db')
+
 export default (req, res) => {
   switch(req.method) {
     case 'GET':
-      res.status(200).json({ message: `you requested for ${req.query.name}` });
-      break;
+      const users = await db.query('select * from users')
+      res.status(200).json({ message: `you requested for ${ JSON.stringify(users) }` })
+      break
     case 'POST':
-      res.status(200).json({ message: `user name is ${req.body['name']}`});
-      break;
+      res.status(200)
+      break
   }
-      
- };
+ }
