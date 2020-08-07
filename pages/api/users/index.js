@@ -26,7 +26,7 @@ export default async (req, res) => {
         await db.transaction(`insert into users(email, password) values('${ user.email }', '${user.password }')`)
 
         const retUser = { email: user.email }
-        res.status(200).json({ user: retUser })
+        res.status(201).json({ user: retUser })
       } catch(err) {
         res.status(500).json({ error: err.sqlMessage })
         return

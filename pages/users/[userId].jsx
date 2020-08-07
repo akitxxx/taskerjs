@@ -19,7 +19,7 @@ const UserPage = ({ user }) => {
 
 UserPage.getInitialProps = async (context) => {
   const { userId } = context.query
-  const res = await fetch(`http://localhost:3000/api/users/${ userId }`, { method: 'GET' })
+  const res = await fetch(`http://localhost:3000/api/users/${userId}`, { method: 'GET' })
   const json = await res.json()
   return { user: json }
 }
