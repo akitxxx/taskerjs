@@ -19,8 +19,7 @@ const UserNewPage = () => {
 
     try {
       const user = await registerUser(state)
-      alert(`Success.\nUser registered：${user.email}`)
-      router.push('/users')
+      router.push(`/users?success=true&registeredUser=${user.email}`)
     } catch(err) {
       alert('failed to register.\n' + 'Error: ' + err)
       return

@@ -3,16 +3,8 @@ import { Modal, Button } from 'react-bootstrap'
 
 const ModalConfirm = (props) => {
 
-  const handleClose = () => {
-    props.onClose
-  }
-
-  const handleClick = () => {
-    props.onClick
-  }
-
   return (
-    <Modal show={props.show} onHide={handleClose}>
+    <Modal show={props.show} onHide={props.onClose} animation>
       <Modal.Header closeButton>
         <Modal.Title>{props.title}</Modal.Title>
       </Modal.Header>
@@ -22,8 +14,8 @@ const ModalConfirm = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClose={() => handleClose}>Cancel</Button>
-        <Button variant={props.execButtonType} onClick={() => handleClick}>{props.execButton}</Button>
+        <Button variant="secondary" onClick={props.onClose}>Cancel</Button>
+        <Button variant={props.execButtonType} onClick={props.onClick}>{props.execButton}</Button>
       </Modal.Footer>
     </Modal>
   )

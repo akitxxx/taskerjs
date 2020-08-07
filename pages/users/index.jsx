@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button, Table, Alert } from 'react-bootstrap'
 import Link from 'next/link'
 import ModalConfirm from '../../components/modal'
@@ -11,6 +11,15 @@ const ManageUserPage = (props) => {
   const [showModalConfirm, setShowModalConfirm] = useState(false)
   const [deleteUserId, setDeleteUserId] = useState('')
 
+  useEffect(() => {
+    // show success if query param is true.
+    if(props.query.success) {
+      const message = `Registered User : ${props.query.registeredUser}`
+      alertSuccess(message)
+    }
+  }, [props.query])
+
+  // show success
   const alertSuccess = (message) => {
     setShowSuccess(true)
     setSuccessMessage(message)
@@ -25,12 +34,14 @@ const ManageUserPage = (props) => {
       setUsers(userJson)
   }
 
-  const handleClickDelete = async (e, userId) => {
-    await setDeleteUserId(userId)
+  const handleClickDelete = (e, userId) => {
+    // give userId and show confirm dialog.
+    setDeleteUserId(userId)
     setShowModalConfirm(true)
   }
 
   const deleteUser = async () => {
+    // fetch delete user api.
     try {
       await fetch(`http://localhost:3000/api/users/${deleteUserId}`, { method: 'DELETE' }) 
 
@@ -40,6 +51,10 @@ const ManageUserPage = (props) => {
       alert('Error: ' + err)
     }
 
+    setShowModalConfirm(false)
+  }
+
+  const closeModalConfirm = () => {
     setShowModalConfirm(false)
   }
 
@@ -61,7 +76,13 @@ const ManageUserPage = (props) => {
     <Container>
       <Row>
         <Col>
-          <Alert variant="success" dismissible show={showSuccess}>{successMessage}</Alert>
+          <Alert
+            variant="success"
+            show={showSuccess}
+            onClose={() => setShowSuccess(false)}
+            dismissible
+          >{successMessage}
+          </Alert>
         </Col>
       </Row>
       <Row>
@@ -97,15 +118,16 @@ const ManageUserPage = (props) => {
         execButton="Delete"
         execButtonType="danger"
         onClick={deleteUser}
+        onClose={closeModalConfirm}
       />
     </Container>
   )
 }
 
-ManageUserPage.getInitialProps = async () => {
+ManageUserPage.getInitialProps = async ({ query }) => {
   const res = await fetch('http://localhost:3000/api/users', { method: 'GET' })
   const json = await res.json()
-  return { users: json }
+  return { users: json, query: query }
 }
 
 export default ManageUserPage
