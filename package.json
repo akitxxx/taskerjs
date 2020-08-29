@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "test": "jest"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -22,7 +23,13 @@
     "serverless-mysql": "^1.5.4"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.3.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "cypress": "^5.0.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
     "jest": "^26.4.2"
   }
 }
