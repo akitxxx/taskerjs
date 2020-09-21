@@ -58,19 +58,25 @@ const ManageUserPage = (props) => {
     setShowModalConfirm(false)
   }
 
-  const userList = users.map((user, index) => (
-    <tr key={index + 1}>
-      <td>{index + 1}</td>
-      <td>
-        <Link href="/users/[userId]" as={`/users/${user.id}`}>
-          <a>{user.email}</a>
-        </Link>
-      </td>
-      <td>
-        <Button variant="danger" onClick={(e) => handleClickDelete(e, user.id)}>削除</Button>
-      </td>
-    </tr>
-  ))
+  const userList = () => {
+    if(!users) {
+      return
+    }
+
+    return users.map((user, index) => (
+      <tr key={index + 1}>
+        <td>{index + 1}</td>
+        <td>
+          <Link href="/users/[userId]" as={`/users/${user.id}`}>
+            <a>{user.email}</a>
+          </Link>
+        </td>
+        <td>
+          <Button variant="danger" onClick={(e) => handleClickDelete(e, user.id)}>削除</Button>
+        </td>
+      </tr>
+    ))
+  }
 
   return (
     <Container>
