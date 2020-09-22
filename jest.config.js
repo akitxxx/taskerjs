@@ -91,7 +91,15 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  presets: [
+    [
+      "@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
 
   // Run tests from one or more projects
   // projects: undefined,
