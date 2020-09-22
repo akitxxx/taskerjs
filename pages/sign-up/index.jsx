@@ -20,9 +20,10 @@ const SignUpPage = (props) => {
     const uri = '/api/sign-up'
     try {
       const res = await axios.post(uri, params)
-      alert(res)
+      // alert(res)
+      console.log(res)
     } catch {
-      alert('error')
+      // alert('error')
     }
   }
 
