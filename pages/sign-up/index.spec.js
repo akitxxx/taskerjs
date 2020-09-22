@@ -7,22 +7,32 @@ import { Form } from 'react-bootstrap'
 jest.mock('axios')
 
 describe('SignUpPage', () => {
-  test('show sign up title', () => {
+  test('should exist input forms', () => {
     const wrapper = shallow(<SignUpPage />)
-    expect(wrapper.find('h2').text()).toEqual('Sign up')
+    expect(wrapper.find(<Form.Control name='id' />))
+    expect(wrapper.find(<Form.Control name='password' />))
+    expect(wrapper.find(<Form.Control name='confirmPassword' />))
   })
-  // ui test
 
-  // func test
-  xtest('test', async ()=>{
-    // (axios.post).mockResolvedValue({ data: { message: 'Mock response!!!' } });
-    const axiosMock = axios.post.mockImplementation(() => Promise.resolve({ data: {message: 'hello'} }))
+  test('should request creating account with entered params', async () => {
+    const axiosMock = axios.post.mockImplementation(() => Promise.resolve())
+
+    const input = {
+      id: 'id',
+      password: 'password',
+      confirmPassword: 'password',
+    }
 
     const wrapper = shallow(<SignUpPage />)
-    wrapper.find({ name: 'id' }).simulate('change', { target: { value: 'id' } })
+    wrapper.find({ name: 'id' }).simulate('change', { target: { name: 'id',  value: input.id } })
+    wrapper.find({ name: 'password' }).simulate('change', { target: { name: 'password', value: input.password } })
+    wrapper.find({ name: 'confirmPassword' }).simulate('change', { target: { name: 'confirmPassword', value: input.confirmPassword } })
     await wrapper.find('Button').simulate('click')
 
-    console.log(axiosMock.mock)
-
+    expect(axiosMock.mock.calls[0][1]).toEqual({
+      id: 'id',
+      password: 'password',
+      confirmPassword: 'password',
+    })
   }) 
 }) 
