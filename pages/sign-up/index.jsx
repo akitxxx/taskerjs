@@ -6,7 +6,7 @@ const SignUpPage = (props) => {
   const [params, setParams] = useState({})
 
   const handleChange = e => {
-    setParam({ ...params, [e.target.name]: e.target.value })
+    setParams({ ...params, [e.target.name]: e.target.value })
   }
 
   const handleKeyPress = e => {
