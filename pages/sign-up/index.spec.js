@@ -35,4 +35,25 @@ describe('SignUpPage', () => {
       confirmPassword: 'password',
     })
   }) 
+
+  test.only('should login after successful request', () => {
+    const axiosMock = axios.post.mockImplementation(() => Promise.resolve())
+
+    const input = {
+      id: 'id',
+      password: 'password',
+      confirmPassword: 'password',
+    }
+
+    const wrapper = shallow(<SignUpPage />)
+    wrapper.find({ name: 'id' }).simulate('change', { target: { name: 'id',  value: input.id } })
+    wrapper.find({ name: 'password' }).simulate('change', { target: { name: 'password', value: input.password } })
+    wrapper.find({ name: 'confirmPassword' }).simulate('change', { target: { name: 'confirmPassword', value: input.confirmPassword } })
+    await wrapper.find('Button').simulate('click')
+  })
+
+  test('should show error after bad request', () => {
+
+  })
+
 }) 

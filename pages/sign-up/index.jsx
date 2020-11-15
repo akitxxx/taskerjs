@@ -21,7 +21,7 @@ const SignUpPage = (props) => {
     try {
       const res = await axios.post(uri, params)
       // alert(res)
-    } catch {
+    } catch(e) {
       // alert('error')
     }
   }
